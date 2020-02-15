@@ -4,27 +4,62 @@ var scenes;
     class Play extends objects.Scene {
         // PUBLIC PROPERTIES
         // CONSTRUCTOR
-        constructor() {
+        constructor(slotNo = 3) {
             super();
             // initialization
-            this.playLabel = new objects.Label();
-            this.nextButton = new objects.Button();
+            this._slotMachine = new objects.SlotMachine();
+            this._closeButton = new objects.Button();
+            this._symbols = new Array();
+            this._symbols.push(new objects.Symbol("Seven"));
+            this._symbols.push(new objects.Symbol("Plum"));
+            this._symbols.push(new objects.Symbol("Orange"));
+            this._symbols.push(new objects.Symbol("Bar"));
+            this._symbols.push(new objects.Symbol("Grape"));
+            this._symbols.push(new objects.Symbol("Cherry"));
+            this._symbols.push(new objects.Symbol("Bell"));
+            this._symbols.push(new objects.Symbol("Blank"));
+            // Create the slots by specified number
+            this._noOfSlots = slotNo;
+            this._slots = new Array();
+            this._rollers = new Array();
+            //Placing slots in UI location
+            var i = 1;
+            var xloc = 196;
+            while (i <= slotNo) {
+                this._slots.push(new objects.Slot(this._symbols, xloc, 143));
+                this._rollers.push(new objects.Roller(xloc, 143));
+                i++;
+                xloc += 219;
+            }
+            this._rollers[0].y = -1150;
             this.Start();
         }
         // PUBLIC METHODS
         Start() {
-            this.playLabel = new objects.Label("Play Game", "80px", "Consolas", "#000000", 320, 200, true);
-            this.nextButton = new objects.Button("./Assets/images/nextButton.png", 320, 400, true);
+            this._slotMachine = new objects.SlotMachine();
             this.Main();
         }
         Update() {
+            this._slotMachine.Update();
+            this._slots.forEach((slot) => {
+                slot.Update();
+            });
+            this._rollers.forEach((roll) => {
+                roll.Update();
+            });
         }
         Main() {
-            this.addChild(this.playLabel);
-            this.addChild(this.nextButton);
-            this.nextButton.on("click", function () {
-                config.Game.SCENE_STATE = scenes.State.END;
+            let that = this;
+            this._rollers.forEach((roller) => {
+                roller.Rolls.forEach((roll) => {
+                    that.addChild(roll);
+                });
+                that.addChild(roller);
             });
+            this._slots.forEach((slot) => {
+                that.addChild(slot);
+            });
+            this.addChild(this._slotMachine);
         }
     }
     scenes.Play = Play;

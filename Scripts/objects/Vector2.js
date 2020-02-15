@@ -124,6 +124,11 @@ var objects;
             let dy = lhs.y - rhs.y;
             return new Vector2(dx, dy);
         }
+        static add(lhs, rhs) {
+            let dx = lhs.x += rhs.x;
+            let dy = lhs.y += rhs.y;
+            return new Vector2(dx, dy);
+        }
     }
     objects.Vector2 = Vector2;
 })(objects || (objects = {}));

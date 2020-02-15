@@ -1,16 +1,16 @@
-module objects
-{
-    export class Player extends GameObject
-    {
+module objects {
+    export class Symbol extends GameObject{
+
         // PRIVATE INSTANCE MEMBERS
 
         // PUBLIC PROPERTIES
 
         // CONSTRUCTOR
-        constructor()
+        constructor(symbolName:string = "symbol", image:object = config.Game.ASSETS.getResult("placeholder"))
         {
-            super(config.Game.ASSETS.getResult("placeholder"), 0, 0, true);
+            super(image, 0, 0, true);
 
+            this.name = symbolName;
             this.Start();
         }
 
@@ -25,10 +25,6 @@ module objects
         }
 
         public Update(): void {
-            let mouseX = config.Game.STAGE.mouseX;
-            let mouseY = config.Game.STAGE.mouseY;
-
-           this.position = new Vector2(mouseX, mouseY);
         }
 
         public Reset(): void {

@@ -5,13 +5,13 @@ var objects;
         // CONSTRUCTOR
         /**
          * Creates an instance of GameObject.
-         * @param {string} [imagePath="./Assets/images/placeholder.png"]
+         * @param {object} [imagePath="./Assets/images/placeholder.png"]
          * @param {number} [x=0]
          * @param {number} [y=0]
          * @param {boolean} [centered=false]
          * @memberof GameObject
          */
-        constructor(imagePath = "./Assets/images/placeholder.png", x = 0, y = 0, centered = false) {
+        constructor(imagePath = config.Game.ASSETS.getResult("placeholder"), x = 0, y = 0, centered = false) {
             super(imagePath);
             // MEMBER VARIABLES
             this._width = 0;
@@ -21,15 +21,14 @@ var objects;
             this._isColliding = false;
             this._isCentered = false;
             this._position = new objects.Vector2(0, 0);
+            this._velocity = new objects.Vector2(0, 0);
             this.isColliding = false;
             // wait for the  image to load before calculating its width and height
-            this.image.addEventListener('load', () => {
-                this.width = this.getBounds().width;
-                this.height = this.getBounds().height;
-                this.halfWidth = this.width * 0.5;
-                this.halfHeight = this.height * 0.5;
-                this.isCentered = centered;
-            });
+            this.width = this.getBounds().width;
+            this.height = this.getBounds().height;
+            this.halfWidth = this.width * 0.5;
+            this.halfHeight = this.height * 0.5;
+            this.isCentered = centered;
             // set the GameObject's position
             this.position = new objects.Vector2(x, y);
         }
@@ -86,6 +85,12 @@ var objects;
                 this.regX = 0;
                 this.regY = 0;
             }
+        }
+        get Velocity() {
+            return this._velocity;
+        }
+        set Velocity(newVelocity) {
+            this._velocity = newVelocity;
         }
     }
     objects.GameObject = GameObject;

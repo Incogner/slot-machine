@@ -1,12 +1,13 @@
 "use strict";
 var objects;
 (function (objects) {
-    class Player extends objects.GameObject {
+    class Symbol extends objects.GameObject {
         // PRIVATE INSTANCE MEMBERS
         // PUBLIC PROPERTIES
         // CONSTRUCTOR
-        constructor() {
-            super(config.Game.ASSETS.getResult("placeholder"), 0, 0, true);
+        constructor(symbolName = "symbol", image = config.Game.ASSETS.getResult("placeholder")) {
+            super(image, 0, 0, true);
+            this.name = symbolName;
             this.Start();
         }
         // PRIVATE METHODS
@@ -16,13 +17,10 @@ var objects;
         Start() {
         }
         Update() {
-            let mouseX = config.Game.STAGE.mouseX;
-            let mouseY = config.Game.STAGE.mouseY;
-            this.position = new objects.Vector2(mouseX, mouseY);
         }
         Reset() {
         }
     }
-    objects.Player = Player;
+    objects.Symbol = Symbol;
 })(objects || (objects = {}));
-//# sourceMappingURL=Player.js.map
+//# sourceMappingURL=Symbol.js.map

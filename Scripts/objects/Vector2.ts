@@ -154,5 +154,11 @@ module objects{
             let dy = lhs.y - rhs.y;
             return new Vector2(dx, dy);
         }
+
+        public static add(lhs:Vector2, rhs:Vector2):Vector2{
+            let dx = lhs.x += rhs.x;
+            let dy = lhs.y += rhs.y;
+            return new Vector2(dx, dy);
+        }
     }
 }

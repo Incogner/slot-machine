@@ -6,6 +6,26 @@ let game = (function(){
 
     let currentSceneState:scenes.State;
     let currentScene:objects.Scene;
+    let assets:createjs.LoadQueue;
+    let assetsManifest = [
+        {id: "startButton", src:"./Assets/images/startButton.png"},
+        {id: "backButton", src:"./Assets/images/backButton.png"},
+        {id: "nextButton", src:"./Assets/images/nextButton.png"},
+        {id: "ocean", src:"./Assets/images/ocean.gif"},
+        {id: "placeholder", src:"./Assets/images/placeholder.png"},
+        {id: "plane", src:"./Assets/images/plane.png"},
+        {id: "slot", src:"./Assets/images/slot.png"},
+        {id: "slotmachine", src:"./Assets/images/slotmachine.png"},
+        {id: "roller", src:"./Assets/images/roller.png"}
+    ];
+
+    function Preload():void{
+        assets = new createjs.LoadQueue();
+        config.Game.ASSETS = assets;
+        assets.installPlugin(createjs.Sound);
+        assets.loadManifest(assetsManifest);
+        assets.on("complete", Start);
+    }
    
 
     /**
@@ -14,7 +34,6 @@ let game = (function(){
      */
     function Start():void
     {
-        console.log(`%c Game Started`, "color: blue; font-size:20px;");
         stage = new createjs.Stage(canvas);
         stage.name = "Main Stage";
         config.Game.STAGE = stage; // create a reference to the Global Stage
@@ -47,8 +66,6 @@ let game = (function(){
      */
     function Main():void
     {
-        console.log(`%c Switching Scenes`, "color: green; font-size:16px;");
-
         // Clean Up
         if(currentSceneState != scenes.State.NO_SCENE)
         {
@@ -75,5 +92,5 @@ let game = (function(){
 
     }
 
-    window.addEventListener("load", Start);
+    window.addEventListener("load", Preload);
 })();

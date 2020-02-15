@@ -10,6 +10,7 @@ module objects
         private _isColliding:boolean = false;
         private _isCentered:boolean = false;
         private _position:Vector2 = new Vector2(0, 0);
+        private _velocity:Vector2 = new Vector2(0, 0);
 
         // PROPERTIES
         get width():number
@@ -97,30 +98,36 @@ module objects
             
         }
 
+        get Velocity(){
+            return this._velocity;
+        }
+
+        set Velocity(newVelocity:Vector2){
+            this._velocity = newVelocity;
+        }
+
         // CONSTRUCTOR
         /**
          * Creates an instance of GameObject.
-         * @param {string} [imagePath="./Assets/images/placeholder.png"]
+         * @param {object} [imagePath="./Assets/images/placeholder.png"]
          * @param {number} [x=0]
          * @param {number} [y=0]
          * @param {boolean} [centered=false]
          * @memberof GameObject
          */
-        constructor(imagePath:string = "./Assets/images/placeholder.png",
+        constructor(imagePath:object = config.Game.ASSETS.getResult("placeholder"),
                     x:number = 0, y:number = 0, centered:boolean = false)
         {
             super(imagePath);
             this.isColliding = false;
 
             // wait for the  image to load before calculating its width and height
-            this.image.addEventListener('load', ()=>{
-                this.width = this.getBounds().width;
-                this.height = this.getBounds().height;
-                this.halfWidth = this.width * 0.5;
-                this.halfHeight = this.height * 0.5;
+            this.width = this.getBounds().width;
+            this.height = this.getBounds().height;
+            this.halfWidth = this.width * 0.5;
+            this.halfHeight = this.height * 0.5;
 
-                this.isCentered = centered;
-            });
+            this.isCentered = centered;
 
             // set the GameObject's position
             this.position = new Vector2(x, y);

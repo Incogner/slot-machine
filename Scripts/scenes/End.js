@@ -14,7 +14,7 @@ var scenes;
         // PUBLIC METHODS
         Start() {
             this.endLabel = new objects.Label("End Scene", "80px", "Consolas", "#000000", 320, 200, true);
-            this.endButton = new objects.Button("./Assets/images/backButton.png", 320, 400, true);
+            this.endButton = new objects.Button(config.Game.ASSETS.getResult("backButton"), 320, 400, true);
             this.Main();
         }
         Update() {
