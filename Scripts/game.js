@@ -9,7 +9,6 @@ let game = (function () {
     let assets;
     let assetsManifest = [
         { id: "startButton", src: "./Assets/images/startButton.png" },
-        { id: "backButton", src: "./Assets/images/backButton.png" },
         { id: "resetButton", src: "./Assets/images/resetButton.png" },
         { id: "placeholder", src: "./Assets/images/placeholder.png" },
         { id: "spinButton", src: "./Assets/images/spin.png" },
