@@ -84,7 +84,7 @@ let game = (function(){
                 currentScene = new scenes.Play();
                 break;
             case scenes.State.END:
-                currentScene = new scenes.End();
+                //currentScene = new scenes.End();
                 break;
         }
         // add the scene to the stage and setup the current scene
