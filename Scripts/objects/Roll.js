@@ -89,7 +89,6 @@ var objects;
          */
         Reset() {
             this.y = this.y - 1550 - this._verticalSpeed;
-            console.log("v speed " + this._verticalSpeed);
         }
     }
     objects.Roll = Roll;
