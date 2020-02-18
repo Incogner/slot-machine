@@ -1,34 +1,24 @@
 module objects {
-    export class Symbol extends GameObject{
+    export class Symbol extends createjs.Container{
 
         // PRIVATE INSTANCE MEMBERS
+        private _verticalPosition: number;
 
         // PUBLIC PROPERTIES
+        get VerticalPosition(){
+            return this._verticalPosition;
+        }
+
+        set VerticalPosition(newPostion:number){
+            this._verticalPosition = newPostion;
+        }
 
         // CONSTRUCTOR
-        constructor(symbolName:string = "symbol", image:object = config.Game.ASSETS.getResult("placeholder"))
+        constructor(symbolName:string = "blank", verticalPosition:number = 97)
         {
-            super(image, 0, 0, true);
-
+            super();
             this.name = symbolName;
-            this.Start();
-        }
-
-        // PRIVATE METHODS
-        protected _checkBounds(): void {
-            
-        }      
-
-        // PUBLIC METHODS
-        public Start(): void {
-            
-        }
-
-        public Update(): void {
-        }
-
-        public Reset(): void {
-            
+            this._verticalPosition = verticalPosition;
         }
     }
 }

@@ -11,12 +11,13 @@ let game = (function () {
         { id: "startButton", src: "./Assets/images/startButton.png" },
         { id: "backButton", src: "./Assets/images/backButton.png" },
         { id: "nextButton", src: "./Assets/images/nextButton.png" },
-        { id: "ocean", src: "./Assets/images/ocean.gif" },
         { id: "placeholder", src: "./Assets/images/placeholder.png" },
-        { id: "plane", src: "./Assets/images/plane.png" },
+        { id: "spinButton", src: "./Assets/images/spin.png" },
         { id: "slot", src: "./Assets/images/slot.png" },
         { id: "slotmachine", src: "./Assets/images/slotmachine.png" },
-        { id: "roller", src: "./Assets/images/roller.png" }
+        { id: "roller", src: "./Assets/images/roller.png" },
+        { id: "addBet", src: "./Assets/images/plus.png" },
+        { id: "deductBet", src: "./Assets/images/minus.png" }
     ];
     function Preload() {
         assets = new createjs.LoadQueue();

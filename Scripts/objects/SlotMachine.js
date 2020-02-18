@@ -7,7 +7,7 @@ var objects;
         constructor(slotNo = 3, image = config.Game.ASSETS.getResult("slotmachine")) {
             super(image, 0, 0, false);
             // PRIVATE INSTANCE MEMBERS
-            this.rolling = false;
+            this._rolling = false;
             this.Start();
         }
         // PRIVATE METHODS

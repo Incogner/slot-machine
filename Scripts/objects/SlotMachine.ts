@@ -2,8 +2,7 @@ module objects{
     export class SlotMachine extends GameObject{
 
          // PRIVATE INSTANCE MEMBERS
-         
-         rolling:boolean = false;
+         private _rolling:boolean = false;
 
 
          // PUBLIC PROPERTIES
@@ -24,7 +23,6 @@ module objects{
  
          // PUBLIC METHODS
          public Start(): void {
-
              
          }
  

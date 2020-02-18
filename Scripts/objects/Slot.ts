@@ -1,21 +1,31 @@
 module objects{
-    export class Slot extends GameObject{
+    export class Slot extends createjs.Container{
 
         // PRIVATE INSTANCE MEMBERS
-        currentSymbol:Symbol;
-        symbols:Symbol[];
-        roller:Roller;
+        private _currentSymbol:Symbol;
+        private _symbols:Symbol[];
+        private _roller:Roller;
 
         // PUBLIC PROPERTIES
+        get Roller(): Roller {
+            return this._roller;
+        }
+
+        set Roller(newRoller:Roller){
+            this._roller = newRoller;
+        }
 
         // CONSTRUCTOR
         constructor(symbols:Symbol[], x:number = 0, y:number =0)
         {
-            super(config.Game.ASSETS.getResult("slot"), x, y, false);
+            super();
+            this.x = x;
+            this.y = y;
 
-            this.roller = new Roller();
-            this.symbols = symbols;
-            this.currentSymbol = symbols[0];
+            this._roller = new Roller();
+            this._symbols = config.Game.SYMBOLS;
+            this._currentSymbol = symbols[0];
+            this.addChild(this.Roller);
             this.Start();
         }
 
@@ -39,34 +49,38 @@ module objects{
             outCome = Math.floor((Math.random() * 65) + 1);
             switch (outCome) {
                 case this._checkRange(outCome, 1, 27):  // 41.5% probability
-                    this.currentSymbol = this.symbols[7];
+                    this._currentSymbol = this._symbols[7];
+                    config.Game.BLANKS++;
                     break;
                 case this._checkRange(outCome, 28, 37): // 15.4% probability
-                    this.currentSymbol = this.symbols[6];
+                    this._currentSymbol = this._symbols[6];
+                    config.Game.GRAPES++;
                     break;
                 case this._checkRange(outCome, 38, 46): // 13.8% probability
-                    this.currentSymbol = this.symbols[5];
+                    this._currentSymbol = this._symbols[5];
+                    config.Game.PLUMS++;
                     break;
                 case this._checkRange(outCome, 47, 54): // 12.3% probability
-                    this.currentSymbol = this.symbols[4];
+                    this._currentSymbol = this._symbols[4];
+                    config.Game.ORANGES++;
                     break;
                 case this._checkRange(outCome, 55, 59): //  7.7% probability
-                    this.currentSymbol = this.symbols[3];
+                    this._currentSymbol = this._symbols[3];
+                    config.Game.CHERRIES++;
                     break;
                 case this._checkRange(outCome, 60, 62): //  4.6% probability
-                    this.currentSymbol = this.symbols[2];
+                    this._currentSymbol = this._symbols[2];
+                    config.Game.BARS++;
                     break;
                 case this._checkRange(outCome, 63, 64): //  3.1% probability
-                    this.currentSymbol = this.symbols[1];
+                    this._currentSymbol = this._symbols[1];
+                    config.Game.BELLS++;
                     break;
                 case this._checkRange(outCome, 65, 65): //  1.5% probability
-                    this.currentSymbol = this.symbols[0];
+                    this._currentSymbol = this._symbols[0];
+                    config.Game.SEVENS++;
                     break;
             }
-        }
-
-        protected roll():void{
-
         }
 
         // PUBLIC METHODS
@@ -75,16 +89,16 @@ module objects{
         }
 
         public Update(): void {
+
         }
 
         public Reset(): void {
          
         }
 
-        public Spin():void {
+        public Spin(): void {
             this._assignSymbol();
-
+            this.Roller.ShowResult(this._currentSymbol.VerticalPosition);
         }
-        
     }
 }

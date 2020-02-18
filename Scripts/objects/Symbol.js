@@ -1,24 +1,19 @@
 "use strict";
 var objects;
 (function (objects) {
-    class Symbol extends objects.GameObject {
-        // PRIVATE INSTANCE MEMBERS
-        // PUBLIC PROPERTIES
+    class Symbol extends createjs.Container {
         // CONSTRUCTOR
-        constructor(symbolName = "symbol", image = config.Game.ASSETS.getResult("placeholder")) {
-            super(image, 0, 0, true);
+        constructor(symbolName = "blank", verticalPosition = 97) {
+            super();
             this.name = symbolName;
-            this.Start();
+            this._verticalPosition = verticalPosition;
         }
-        // PRIVATE METHODS
-        _checkBounds() {
+        // PUBLIC PROPERTIES
+        get VerticalPosition() {
+            return this._verticalPosition;
         }
-        // PUBLIC METHODS
-        Start() {
-        }
-        Update() {
-        }
-        Reset() {
+        set VerticalPosition(newPostion) {
+            this._verticalPosition = newPostion;
         }
     }
     objects.Symbol = Symbol;
