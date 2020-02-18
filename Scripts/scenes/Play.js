@@ -12,6 +12,7 @@ var scenes;
             // initialization
             this._slotMachine = new objects.SlotMachine();
             this._spinButton = new objects.Button(config.Game.ASSETS.getResult("spinButton"), 810, 610, true);
+            this._resetButton = new objects.Button(config.Game.ASSETS.getResult("resetButton"), 655, 610, true);
             this._addBetButton = new objects.Button(config.Game.ASSETS.getResult("addBet"), 378, 607, true);
             this._deductBetButton = new objects.Button(config.Game.ASSETS.getResult("deductBet"), 182, 607, true);
             // Labels
@@ -19,7 +20,7 @@ var scenes;
             this._winTXT = new objects.Label(config.Game.WIN_NUMBER.toString(), this._fontSize, this._fontFamily, this._fontColor, 60, 230, false);
             this._lossTXT = new objects.Label(config.Game.LOSS_NUMBER.toString(), this._fontSize, this._fontFamily, this._fontColor, 60, 320, false);
             this._turnTXT = new objects.Label(config.Game.TURN.toString(), this._fontSize, this._fontFamily, this._fontColor, 60, 140, false);
-            this._winRateTXT = new objects.Label("% " + config.Game.WIN_RATIO.toString(), "20px", this._fontFamily, this._fontColor, 30, 415, false);
+            this._winRateTXT = new objects.Label("% " + config.Game.WIN_RATIO.toString(), "20px", this._fontFamily, this._fontColor, 40, 415, false);
             this._playerMoneyTXT = new objects.Label("$ " + config.Game.PLAYER_MONEY.toString(), this._fontSize, this._fontFamily, this._fontColor, 850, 28, false);
             this._playerBetTXT = new objects.Label("$ " + config.Game.PLAYER_BET.toString(), this._fontSize, this._fontFamily, this._fontColor, 235, 593, false);
             this._playerWinTXT = new objects.Label("$ " + config.Game.WINNINGS.toString(), this._fontSize, this._fontFamily, this._fontColor, 435, 593, false);
@@ -144,21 +145,20 @@ var scenes;
                 }
                 config.Game.PLAYER_MONEY += wins;
                 config.Game.WINNINGS = wins;
-                //$("div#winOrLose>p").text("You Won: $" + winnings);
                 this._resetFruitTally();
                 this._checkJackPot();
             }
             else {
                 config.Game.LOSS_NUMBER++;
                 config.Game.PLAYER_MONEY -= config.Game.PLAYER_BET;
-                //$("div#winOrLose>p").text("You Lost!");
+                this._checkJackPot();
                 this._resetFruitTally();
             }
         }
         _checkJackPot() {
             var jackPotTry = Math.floor(Math.random() * 51 + 1);
             var jackPotWin = Math.floor(Math.random() * 51 + 1);
-            if (jackPotTry == jackPotWin) {
+            if (jackPotTry == jackPotWin || config.Game.PLAYER_BET === 110) {
                 alert("You Won the $" + config.Game.JACKPOT + " Jackpot!!");
                 config.Game.PLAYER_MONEY += config.Game.JACKPOT;
                 config.Game.JACKPOT = 1000;
@@ -201,6 +201,7 @@ var scenes;
             });
             this.addChild(this._slotMachine);
             this.addChild(this._spinButton);
+            this.addChild(this._resetButton);
             this.addChild(this._addBetButton);
             this.addChild(this._deductBetButton);
             this.addChild(this._jackPotTXT);
@@ -229,6 +230,13 @@ var scenes;
                     config.Game.PLAYER_BET -= 10;
                     that._showPlayerStats();
                 }
+            });
+            this._resetButton.on("click", function () {
+                that._resetAll();
+                that._showPlayerStats();
+                that._slots.forEach((slot) => {
+                    slot.Roller.ShowResult(config.Game.SYMBOLS[0].VerticalPosition);
+                });
             });
         }
     }
